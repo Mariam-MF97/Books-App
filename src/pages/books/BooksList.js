@@ -1,6 +1,4 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import React, { useState } from "react";
 import {
   Button,
   Grid,
@@ -13,44 +11,25 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useBookContext } from "../../context/BookContext";
 import { handleDelete } from "../../utils/functions/deleteBook";
 import { getCategoryLabel } from "../../utils/functions/getDropDownsLabel";
-
-const booksListStyles = {
-  paper: {
-    borderRadius: 4,
-    padding: 4,
-    backgroundColor: "white",
-  },
-  title: {
-    textAlign: "center",
-  },
-  actionButton: {
-    textAlign: "center",
-  },
-  tableHeader: {
-    fontWeight: "bold",
-    textAlign: "center",
-    backgroundColor: "#f5f5f5",
-  },
-  tableCell: {
-    textAlign: "center",
-  },
-};
+import { booksListStyles } from "../../utils/styles/styles";
+import CustomSearchField from "../../components/CustomSearchField";
 
 const BooksList = () => {
   const { state, dispatch } = useBookContext();
   const { bookData } = state;
-  console.log("bookData:", bookData);
-  const history = useNavigate();
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -61,15 +40,11 @@ const BooksList = () => {
     setPage(0);
   };
 
-  const [searchQuery, setSearchQuery] = useState("");
-  console.log("searchQuery:", searchQuery);
   const filteredBooks = bookData.filter((book) =>
     Object.values(book).some((value) =>
       value.toString().toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
-
-  console.log(filteredBooks);
 
   const displayedBooks = filteredBooks.slice(
     page * rowsPerPage,
@@ -82,21 +57,17 @@ const BooksList = () => {
         <Grid item xs={12} sx={booksListStyles.tableCell}>
           <Typography variant="h4">Books List</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <TextField
-            label="Search"
-            variant="outlined"
-            fullWidth
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+        <Grid item xs={6}>
+          <CustomSearchField
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
         </Grid>
-        <Grid item xs={2}></Grid>
         <Grid item xs={6} sx={{ display: "flex", justifyContent: "end" }}>
           <Button
             variant="contained"
             color="primary"
-            onClick={() => history("add-book")}
+            onClick={() => navigate("add-book")}
           >
             Add Book
           </Button>
@@ -121,45 +92,55 @@ const BooksList = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {displayedBooks.map((book) => (
-                  <TableRow key={book.id}>
-                    <TableCell sx={booksListStyles.tableCell}>
-                      {book.title}
-                    </TableCell>
-                    <TableCell sx={booksListStyles.tableCell}>
-                      {getCategoryLabel(book?.category)}
-                    </TableCell>
-                    <TableCell sx={booksListStyles.tableCell}>
-                      {book.author}
-                    </TableCell>
-                    <TableCell sx={booksListStyles.tableCell}>
-                      {book.isbn}
-                    </TableCell>
-                    <TableCell sx={booksListStyles.tableCell}>
-                      {book.version}
-                    </TableCell>
-                    <TableCell sx={booksListStyles.actionButton}>
-                      <IconButton
-                        color="primary"
-                        onClick={() => history(`edit-book/${book.id}`)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        color="primary"
-                        onClick={() => history(`view-book/${book.id}`)}
-                      >
-                        <VisibilityIcon />
-                      </IconButton>
-                      <IconButton
-                        color="error"
-                        onClick={() => handleDelete(book.id, dispatch, history)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                {displayedBooks.length > 0 ? (
+                  displayedBooks.map((book) => (
+                    <TableRow key={book.id}>
+                      <TableCell sx={booksListStyles.tableCell}>
+                        {book.title}
+                      </TableCell>
+                      <TableCell sx={booksListStyles.tableCell}>
+                        {getCategoryLabel(book?.category)}
+                      </TableCell>
+                      <TableCell sx={booksListStyles.tableCell}>
+                        {book.author}
+                      </TableCell>
+                      <TableCell sx={booksListStyles.tableCell}>
+                        {book.isbn}
+                      </TableCell>
+                      <TableCell sx={booksListStyles.tableCell}>
+                        {book.version}
+                      </TableCell>
+                      <TableCell sx={booksListStyles.actionButton}>
+                        <IconButton
+                          color="primary"
+                          onClick={() => navigate(`edit-book/${book.id}`)}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          color="primary"
+                          onClick={() => navigate(`view-book/${book.id}`)}
+                        >
+                          <VisibilityIcon />
+                        </IconButton>
+                        <IconButton
+                          color="error"
+                          onClick={() =>
+                            handleDelete(book.id, dispatch, navigate)
+                          }
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell sx={booksListStyles.tableCell} colSpan={6}>
+                      No Books Found
                     </TableCell>
                   </TableRow>
-                ))}
+                )}
               </TableBody>
             </Table>
           </TableContainer>

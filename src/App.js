@@ -11,6 +11,7 @@ import Login from "./pages/login/Login";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { NotFound } from "./components/NotFoundComponent";
+import InitialRoute from "./components/InitialRoute";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <AuthProvider>
         <BookProvider>
           <Routes>
+            <Route path="/" element={<InitialRoute />} />
             <Route path="/login" element={<Login />} />
             <Route
               path="/books-list/*"

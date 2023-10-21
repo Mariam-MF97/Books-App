@@ -1,11 +1,11 @@
-import { createContext, useContext, useMemo, useReducer } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { users } from "../utils/data/users";
 
 const AuthContext = createContext();
 
 const initialState = {
-  user: null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
 };
 
 const actionTypes = {
@@ -16,8 +16,10 @@ const actionTypes = {
 const authReducer = (state, action) => {
   switch (action.type) {
     case actionTypes.LOGIN:
+      localStorage.setItem("user", JSON.stringify(action.payload));
       return { ...state, user: action.payload };
     case actionTypes.LOGOUT:
+      localStorage.removeItem("user");
       return { ...state, user: null };
     default:
       return state;
@@ -30,12 +32,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = (email, password) => {
     const matchedUser = users?.find(
-      (user) => user.email == email && user.password == password
+      (user) => user.email === email && user.password === password
     );
 
     if (matchedUser) {
       dispatch({ type: actionTypes.LOGIN, payload: matchedUser });
-      navigate("/books-list");
+      navigate("/books-list", { replace: true });
     } else {
       alert("Login failed. Invalid email or password.");
     }
@@ -46,9 +48,11 @@ export const AuthProvider = ({ children }) => {
     navigate("/login", { replace: true });
   };
 
-  const value = useMemo(() => ({ ...state, login, logout }), [state]);
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ ...state, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {

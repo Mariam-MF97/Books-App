@@ -8,46 +8,29 @@ import * as React from "react";
 import acoreLogo from "../assets/images/acore-logo.png";
 import CustomButton from "./CustomButton";
 import { EmailTextField, PasswordTextField } from "./loginReusableComponents";
+import { loginFormStyle } from "../utils/styles/styles";
 
 const LoginForm = ({ control, onSubmit }) => {
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
         item
-        xs={false}
+        xs={12}
         sm={6}
         md={6}
-        sx={{
-          backgroundRepeat: "no-repeat",
-          background:
-            "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,9,121,1) 41%, rgba(0,212,255,1) 100%)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        style={loginFormStyle.backgroundContainer}
       >
         <img src={acoreLogo} alt="logo" />
       </Grid>
       <Grid item xs={12} sm={6} md={6} component={Paper} elevation={6} square>
-        <Box
-          sx={{
-            my: 8,
-            mx: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "#49086E" }}>
+        <Box style={loginFormStyle.loginFormContainer}>
+          <Avatar style={loginFormStyle.avatarStyle}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
             LOGIN
           </Typography>
-          <form sx={{ mt: 1 }} onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <EmailTextField control={control} />
             <PasswordTextField control={control} />
             <CustomButton

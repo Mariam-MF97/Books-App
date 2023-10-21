@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
-import "../utils/styles/customSelect.css";
 
 export const CustomSelect = ({ name, control, label, options, ...props }) => {
   return (

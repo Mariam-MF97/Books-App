@@ -12,7 +12,7 @@ import { CustomSelect } from "./CustomSelect";
 import { CustomTextarea } from "./CustomTextArea";
 
 const BookForm = ({ title, control, onSubmit }) => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   return (
     <Paper
       elevation={3}
@@ -153,7 +153,7 @@ const BookForm = ({ title, control, onSubmit }) => {
                 label="Cancel"
                 color="error"
                 onClick={() => {
-                  history("/books-list");
+                  navigate("/books-list");
                 }}
               />
             </Grid>

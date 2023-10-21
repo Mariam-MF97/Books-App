@@ -9,8 +9,8 @@ import { useBookContext } from "../../context/BookContext";
 import { BooksInitialValues } from "../../utils/initialValues/BooksInitialValues";
 import { BooksValidationSchema } from "../../utils/validations/BooksValidation";
 function AddBook() {
-  const history = useNavigate();
-  const { state, dispatch } = useBookContext();
+  const navigate = useNavigate();
+  const { dispatch } = useBookContext();
 
   const { control, handleSubmit } = useForm({
     mode: "onChange",
@@ -19,7 +19,6 @@ function AddBook() {
   });
 
   const onSubmit = (data) => {
-    console.log("submit", data);
     const id = uuidv4();
     const newBook = { id, ...data };
 
@@ -34,7 +33,7 @@ function AddBook() {
       confirmButtonText: "OK",
     }).then((result) => {
       if (result.isConfirmed) {
-        history("/books-list");
+        navigate("/books-list");
       }
     });
   };

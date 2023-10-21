@@ -1,5 +1,5 @@
-import { Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { Grid, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useBookContext } from "../context/BookContext";
 import { handleDelete } from "../utils/functions/deleteBook";
@@ -7,17 +7,13 @@ import {
   getCategoryLabel,
   getOldVersionLabel,
 } from "../utils/functions/getDropDownsLabel";
-import { viewBookStyles } from "../utils/styles/viewBookFormStyle";
 import CustomButton from "./CustomButton";
+import { viewBookStyles } from "../utils/styles/styles";
+import { generateRandomValue } from "../utils/functions/generateRandomValue";
 
 const ViewBookForm = ({ book, id }) => {
-  const history = useNavigate();
   const navigate = useNavigate();
-  const { state, dispatch } = useBookContext();
-
-  const generateRandomValue = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
+  const { dispatch } = useBookContext();
 
   const pageCount = generateRandomValue(100, 999);
   const hoursToRead = generateRandomValue(1, 10);
@@ -119,7 +115,7 @@ const ViewBookForm = ({ book, id }) => {
                 label="Delete"
                 color="error"
                 onClick={() => {
-                  handleDelete(id, dispatch, history, "/books-list");
+                  handleDelete(id, dispatch, navigate, "/books-list");
                 }}
               />
             </Grid>

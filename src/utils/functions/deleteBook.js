@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export const handleDelete = (bookId, dispatch, history, url) => {
+export const handleDelete = (bookId, dispatch, navigate, url) => {
   Swal.fire({
     title: "Delete Book",
     text: "Are you sure you want to delete this book?",
@@ -14,7 +14,7 @@ export const handleDelete = (bookId, dispatch, history, url) => {
       dispatch({ type: "DELETE_BOOK", payload: bookId });
       Swal.fire("Deleted!", "The book has been deleted.", "success");
       if (url) {
-        history(url);
+        navigate(url);
       }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
       Swal.fire("Cancelled", "The book has not been deleted.", "error");
