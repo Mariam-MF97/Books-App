@@ -2,10 +2,11 @@ import React from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 
-const CustomSearchField = ({ searchQuery, setSearchQuery, ...props }) => {
+const CustomSearchField = ({ searchQuery, setSearchQuery, t, ...props }) => {
   return (
     <TextField
-      label="Search"
+      sx={{ direction: "ltr" }}
+      label={t("search")}
       variant="outlined"
       fullWidth
       value={searchQuery}

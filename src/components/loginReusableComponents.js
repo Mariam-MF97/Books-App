@@ -4,7 +4,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LockIcon from "@mui/icons-material/Lock";
 import { Controller } from "react-hook-form";
 
-const EmailTextField = ({ control, ...props }) => {
+const EmailTextField = ({ control, t, ...props }) => {
   return (
     <Controller
       name="email"
@@ -16,8 +16,7 @@ const EmailTextField = ({ control, ...props }) => {
           {...props}
           required
           fullWidth
-          label="Email Address"
-          autoComplete="email"
+          label={t("email")}
           autoFocus
           InputProps={{
             startAdornment: (
@@ -33,7 +32,7 @@ const EmailTextField = ({ control, ...props }) => {
   );
 };
 
-const PasswordTextField = ({ control, ...props }) => {
+const PasswordTextField = ({ control, t, ...props }) => {
   return (
     <Controller
       name="password"
@@ -46,9 +45,8 @@ const PasswordTextField = ({ control, ...props }) => {
           margin="normal"
           required
           fullWidth
-          label="Password"
+          label={t("password")}
           type="password"
-          autoComplete="current-password"
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">

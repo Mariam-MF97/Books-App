@@ -11,8 +11,9 @@ import { CustomTextField } from "./CustomInput";
 import { CustomSelect } from "./CustomSelect";
 import { CustomTextarea } from "./CustomTextArea";
 
-const BookForm = ({ title, control, onSubmit }) => {
+const BookForm = ({ title, control, onSubmit, t }) => {
   const navigate = useNavigate();
+
   return (
     <Paper
       elevation={3}
@@ -33,7 +34,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomTextField
                 name="title"
                 control={control}
-                label="Book Title"
+                label={t("title")}
                 required
               />
             </Grid>
@@ -41,7 +42,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomTextField
                 name="author"
                 control={control}
-                label="Book Author"
+                label={t("author")}
                 required
               />
             </Grid>
@@ -49,7 +50,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomSelect
                 name="category"
                 control={control}
-                label="Book Category"
+                label={t("category")}
                 options={bookCategories}
                 required
                 defaultValue={bookCategories[0].id}
@@ -59,7 +60,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomCurrencyInput
                 name="price"
                 control={control}
-                label="Book Price"
+                label={t("price")}
                 startAdornment="$"
                 required
               />
@@ -69,7 +70,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomTextField
                 name="version"
                 control={control}
-                label="Book Version"
+                label={t("version")}
                 required
               />
             </Grid>
@@ -77,7 +78,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomSelect
                 name="old_version"
                 control={control}
-                label="Book Old Version"
+                label={t("oldVersion")}
                 options={bookVersions}
                 defaultValue={bookVersions[0].id}
               />
@@ -86,21 +87,21 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomTextField
                 name="edition"
                 control={control}
-                label="Book Edition"
+                label={t("edition")}
               />
             </Grid>
             <Grid item sx={{ my: 2 }}>
               <CustomTextField
                 name="isbn"
                 control={control}
-                label="Book ISBN"
+                label={t("isbn")}
                 required
               />
             </Grid>
             <Grid item sx={{ my: 2 }}>
               <CustomDatePicker
                 name="release_date"
-                label="Book Release Date"
+                label={t("releaseDate")}
                 control={control}
               />
             </Grid>
@@ -110,7 +111,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomTextarea
                 name="brief"
                 control={control}
-                label="Book Brief"
+                label={t("brief")}
               />
             </Grid>
 
@@ -121,8 +122,9 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomImageUploader
                 name="cover_photo"
                 control={control}
-                buttonName="Upload Cover"
+                buttonName={t("uploadCover")}
                 required
+                t={t}
               />
             </Grid>
 
@@ -133,7 +135,7 @@ const BookForm = ({ title, control, onSubmit }) => {
               <CustomFileUploader
                 name="pdf_file"
                 control={control}
-                buttonName="Upload PDF"
+                buttonName={t("uploadPDF")}
                 required
               />
             </Grid>
@@ -142,7 +144,7 @@ const BookForm = ({ title, control, onSubmit }) => {
           <Grid container spacing={2} justifyContent="center">
             <Grid item>
               <CustomButton
-                label="Save"
+                label={t("save")}
                 color="success"
                 type="submit"
                 onClick={onSubmit}
@@ -150,7 +152,7 @@ const BookForm = ({ title, control, onSubmit }) => {
             </Grid>
             <Grid item>
               <CustomButton
-                label="Cancel"
+                label={t("cancel")}
                 color="error"
                 onClick={() => {
                   navigate("/books-list");

@@ -3,18 +3,19 @@ import { useAuth } from "../context/AuthContext";
 import { Button, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { notFoundComponentStyles } from "../utils/styles/styles";
+import { useTranslation } from "react-i18next";
 
 export function NotFound() {
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   return (
     <Box style={notFoundComponentStyles.container}>
       <Typography variant="h4" gutterBottom>
-        404 - Not Found
+        {t("notFoundTitle")}
       </Typography>
       <Typography variant="body1" paragraph>
-        The page you are looking for does not exist.
+        {t("notFoundMessage")}
       </Typography>
       {user ? (
         <Button
@@ -22,7 +23,7 @@ export function NotFound() {
           color="primary"
           onClick={() => navigate("/books-list", { replace: true })}
         >
-          Go to Books List
+          {t("goToBooksList")}
         </Button>
       ) : (
         <Button
@@ -30,7 +31,7 @@ export function NotFound() {
           color="primary"
           onClick={() => navigate("/login", { replace: true })}
         >
-          Go to Login
+          {t("goToLogin")}
         </Button>
       )}
     </Box>

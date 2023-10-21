@@ -9,8 +9,10 @@ import acoreLogo from "../assets/images/acore-logo.png";
 import CustomButton from "./CustomButton";
 import { EmailTextField, PasswordTextField } from "./loginReusableComponents";
 import { loginFormStyle } from "../utils/styles/styles";
+import { useTranslation } from "react-i18next";
 
 const LoginForm = ({ control, onSubmit }) => {
+  const { t } = useTranslation();
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid
@@ -28,11 +30,11 @@ const LoginForm = ({ control, onSubmit }) => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{ mb: 3 }}>
-            LOGIN
+            {t("login")}
           </Typography>
           <form onSubmit={onSubmit}>
-            <EmailTextField control={control} />
-            <PasswordTextField control={control} />
+            <EmailTextField control={control} t={t} />
+            <PasswordTextField control={control} t={t} />
             <CustomButton
               onClick={() => {
                 onSubmit();
@@ -41,7 +43,7 @@ const LoginForm = ({ control, onSubmit }) => {
               fullWidth
               variant="contained"
               color="primary"
-              label="Login"
+              label={t("login")}
             />
           </form>
         </Box>

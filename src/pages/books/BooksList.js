@@ -22,6 +22,7 @@ import { handleDelete } from "../../utils/functions/deleteBook";
 import { getCategoryLabel } from "../../utils/functions/getDropDownsLabel";
 import { booksListStyles } from "../../utils/styles/styles";
 import CustomSearchField from "../../components/CustomSearchField";
+import { useTranslation } from "react-i18next";
 
 const BooksList = () => {
   const { state, dispatch } = useBookContext();
@@ -30,6 +31,7 @@ const BooksList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchQuery, setSearchQuery] = useState("");
+  const { t } = useTranslation();
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,12 +57,13 @@ const BooksList = () => {
     <Paper elevation={3} sx={booksListStyles.paper}>
       <Grid container spacing={3}>
         <Grid item xs={12} sx={booksListStyles.tableCell}>
-          <Typography variant="h4">Books List</Typography>
+          <Typography variant="h4">{t("booksList")}</Typography>
         </Grid>
         <Grid item xs={6}>
           <CustomSearchField
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            t={t}
           />
         </Grid>
         <Grid item xs={6} sx={{ display: "flex", justifyContent: "end" }}>
@@ -69,7 +72,7 @@ const BooksList = () => {
             color="primary"
             onClick={() => navigate("add-book")}
           >
-            Add Book
+            {t("addBook")}
           </Button>
         </Grid>
         <Grid item xs={12}>
@@ -77,17 +80,23 @@ const BooksList = () => {
             <Table sx={{ minWidth: 650 }} aria-label="Books table">
               <TableHead sx={booksListStyles.tableHeader}>
                 <TableRow>
-                  <TableCell sx={booksListStyles.tableHeader}>Title</TableCell>
                   <TableCell sx={booksListStyles.tableHeader}>
-                    Category
-                  </TableCell>
-                  <TableCell sx={booksListStyles.tableHeader}>Author</TableCell>
-                  <TableCell sx={booksListStyles.tableHeader}>ISBN</TableCell>
-                  <TableCell sx={booksListStyles.tableHeader}>
-                    Version
+                    {t("title")}
                   </TableCell>
                   <TableCell sx={booksListStyles.tableHeader}>
-                    Actions
+                    {t("category")}
+                  </TableCell>
+                  <TableCell sx={booksListStyles.tableHeader}>
+                    {t("author")}
+                  </TableCell>
+                  <TableCell sx={booksListStyles.tableHeader}>
+                    {t("isbn")}
+                  </TableCell>
+                  <TableCell sx={booksListStyles.tableHeader}>
+                    {t("version")}
+                  </TableCell>
+                  <TableCell sx={booksListStyles.tableHeader}>
+                    {t("actions")}
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -137,7 +146,7 @@ const BooksList = () => {
                 ) : (
                   <TableRow>
                     <TableCell sx={booksListStyles.tableCell} colSpan={6}>
-                      No Books Found
+                      {t("noBooksFound")}
                     </TableCell>
                   </TableRow>
                 )}

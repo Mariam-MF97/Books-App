@@ -7,16 +7,19 @@ import BookForm from "../../components/BookForm";
 import { useBookContext } from "../../context/BookContext";
 import { BooksInitialValues } from "../../utils/initialValues/BooksInitialValues";
 import { BooksValidationSchema } from "../../utils/validations/BooksValidation";
+import { useTranslation } from "react-i18next";
+import { showSuccessAlert } from "../../utils/functions/showSuccessAlert";
 
 function EditBook() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { state, dispatch } = useBookContext();
+  const { t } = useTranslation();
 
   const { control, handleSubmit, reset } = useForm({
     mode: "onChange",
     defaultValues: BooksInitialValues,
-    resolver: yupResolver(BooksValidationSchema),
+    resolver: yupResolver(BooksValidationSchema(t)),
   });
 
   useEffect(() => {
@@ -29,24 +32,16 @@ function EditBook() {
     // Dispatch the "EDIT_BOOK" action to edit the book
     dispatch({ type: "EDIT_BOOK", payload: { id, ...data } });
 
-    Swal.fire({
-      icon: "success",
-      title: "Book Updated!",
-      text: "The book has been updated successfully.",
-      showConfirmButton: true,
-      confirmButtonText: "OK",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/books-list");
-      }
-    });
+    showSuccessAlert(t, "bookUpdated", "bookUpdatedSuccess", "ok", () =>
+      navigate("/books-list")
+    );
   };
-
   return (
     <BookForm
-      title="Edit Book"
+      title={t("editBook")}
       control={control}
       onSubmit={handleSubmit(onSubmit)}
+      t={t}
     />
   );
 }

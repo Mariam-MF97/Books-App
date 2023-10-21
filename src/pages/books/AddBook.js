@@ -8,14 +8,18 @@ import BookForm from "../../components/BookForm";
 import { useBookContext } from "../../context/BookContext";
 import { BooksInitialValues } from "../../utils/initialValues/BooksInitialValues";
 import { BooksValidationSchema } from "../../utils/validations/BooksValidation";
+import { useTranslation } from "react-i18next";
+import { showSuccessAlert } from "../../utils/functions/showSuccessAlert";
+
 function AddBook() {
   const navigate = useNavigate();
   const { dispatch } = useBookContext();
+  const { t } = useTranslation();
 
   const { control, handleSubmit } = useForm({
     mode: "onChange",
     defaultValues: BooksInitialValues,
-    resolver: yupResolver(BooksValidationSchema),
+    resolver: yupResolver(BooksValidationSchema(t)),
   });
 
   const onSubmit = (data) => {
@@ -25,24 +29,16 @@ function AddBook() {
     // Dispatch the "ADD_BOOK" action to add the new book to the state
     dispatch({ type: "ADD_BOOK", payload: newBook });
 
-    Swal.fire({
-      icon: "success",
-      title: "Book Added!",
-      text: "The book has been added successfully.",
-      showConfirmButton: true,
-      confirmButtonText: "OK",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/books-list");
-      }
-    });
+    showSuccessAlert(t, "bookAdded", "bookAddedSuccess", "ok", () =>
+      navigate("/books-list")
+    );
   };
-
   return (
     <BookForm
-      title="Add Book"
+      title={t("addBook")}
       control={control}
       onSubmit={handleSubmit(onSubmit)}
+      t={t}
     />
   );
 }

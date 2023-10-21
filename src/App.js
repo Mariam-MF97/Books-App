@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { BookProvider } from "./context/BookContext";
@@ -12,61 +12,65 @@ import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { NotFound } from "./components/NotFoundComponent";
 import InitialRoute from "./components/InitialRoute";
+import { I18nextProvider } from "react-i18next";
+import i18n from "./localization/i18n";
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
-        <BookProvider>
-          <Routes>
-            <Route path="/" element={<InitialRoute />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/books-list/*"
-              element={
-                <DashboardLayout>
-                  <Routes>
-                    <Route
-                      index
-                      element={
-                        <ProtectedRoute>
-                          <BooksList />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/add-book"
-                      element={
-                        <ProtectedRoute>
-                          <AddBook />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/view-book/:id"
-                      element={
-                        <ProtectedRoute>
-                          <ViewBook />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/edit-book/:id"
-                      element={
-                        <ProtectedRoute>
-                          <EditBook />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </DashboardLayout>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BookProvider>
-      </AuthProvider>
+      <I18nextProvider i18n={i18n}>
+        <AuthProvider>
+          <BookProvider>
+            <Routes>
+              <Route path="/" element={<InitialRoute />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/books-list/*"
+                element={
+                  <DashboardLayout>
+                    <Routes>
+                      <Route
+                        index
+                        element={
+                          <ProtectedRoute>
+                            <BooksList />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/add-book"
+                        element={
+                          <ProtectedRoute>
+                            <AddBook />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/view-book/:id"
+                        element={
+                          <ProtectedRoute>
+                            <ViewBook />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/edit-book/:id"
+                        element={
+                          <ProtectedRoute>
+                            <EditBook />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </DashboardLayout>
+                }
+              />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BookProvider>
+        </AuthProvider>
+      </I18nextProvider>
     </Router>
   );
 }

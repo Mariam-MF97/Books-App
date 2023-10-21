@@ -53,7 +53,6 @@ export const CustomFileUploader = ({ name, control, buttonName, ...props }) => {
               src={value}
               width="100%"
               height="300"
-              frameBorder="0"
               allowFullScreen
             ></iframe>
           ) : (

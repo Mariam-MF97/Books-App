@@ -5,11 +5,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import React from "react";
 import { Controller } from "react-hook-form";
+
 export const CustomImageUploader = ({
   name,
   control,
   buttonName,
-  // error,
+  t,
   ...props
 }) => {
   const fileInputRef = React.useRef();
@@ -68,7 +69,7 @@ export const CustomImageUploader = ({
           >
             <BookIcon fontSize="large" />
           </Avatar>
-          <p>Best dimensions for cover image is 128*200</p>
+          <p>{t("cover_dimension")}</p>
           <Button
             size="small"
             variant="outlined"

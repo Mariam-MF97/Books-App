@@ -10,74 +10,78 @@ import {
 import CustomButton from "./CustomButton";
 import { viewBookStyles } from "../utils/styles/styles";
 import { generateRandomValue } from "../utils/functions/generateRandomValue";
+import { useTranslation } from "react-i18next";
 
 const ViewBookForm = ({ book, id }) => {
-  const navigate = useNavigate();
   const { dispatch } = useBookContext();
+  const { t } = useTranslation();
 
   const pageCount = generateRandomValue(100, 999);
   const hoursToRead = generateRandomValue(1, 10);
 
+  const navigate = useNavigate();
+
   return (
     <Paper elevation={3} sx={viewBookStyles.paper}>
+      <h1>{t("bookDetails")}</h1>
       <Grid container spacing={2}>
         <Grid item xs={12} sx={{ display: "flex" }}>
           <Grid item xs={12} lg={2}>
             <img
               src={book?.cover_photo}
-              alt="Book Cover"
+              alt={t("bookCover")}
               style={viewBookStyles.coverImage}
             />
           </Grid>
           <Grid item xs={12} lg={2} sx={{ justifyContent: "center" }}>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Title:{" "}
+              {t("title")}
               <span style={viewBookStyles.textWithBold}>{book?.title}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Price:{" "}
+              {t("price")}
               <span style={viewBookStyles.textWithBold}>
                 ${parseFloat(book?.price).toFixed(2)}
               </span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Pages Count:{" "}
+              {t("pagesCount")}
               <span style={viewBookStyles.textWithBold}>{pageCount}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Hours to Read:{" "}
+              {t("hoursToRead")}
               <span style={viewBookStyles.textWithBold}>{hoursToRead}h</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Author:{" "}
+              {t("author")}
               <span style={viewBookStyles.textWithBold}>{book?.author}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Category:{" "}
+              {t("category")}
               <span style={viewBookStyles.textWithBold}>
                 {getCategoryLabel(book?.category)}
               </span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Version:{" "}
+              {t("version")}
               <span style={viewBookStyles.textWithBold}>{book?.version}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Old Version:{" "}
+              {t("oldVersion")}
               <span style={viewBookStyles.textWithBold}>
                 {getOldVersionLabel(book?.old_version)}
               </span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Edition:{" "}
+              {t("edition")}
               <span style={viewBookStyles.textWithBold}>{book?.edition}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              ISBN:{" "}
+              {t("isbn")}
               <span style={viewBookStyles.textWithBold}>{book?.isbn}</span>
             </Typography>
             <Typography variant="h6" sx={{ m: 2 }}>
-              Release Date:{" "}
+              {t("releaseDate")}
               <span style={viewBookStyles.textWithBold}>
                 {book?.release_date}
               </span>
@@ -94,10 +98,10 @@ const ViewBookForm = ({ book, id }) => {
             }}
           >
             <Typography variant="body1" sx={{ mx: 1 }}>
-              <strong>PDF:</strong>
+              <strong>{t("pdf")}:</strong>
             </Typography>
             <iframe
-              title="Book PDF"
+              title={t("bookPdf")}
               src={book?.pdf_file}
               style={viewBookStyles.pdf}
             ></iframe>
@@ -105,14 +109,14 @@ const ViewBookForm = ({ book, id }) => {
           <Grid item xs={3} sx={{ display: "flex", justifyContent: "end" }}>
             <Grid item sx={{ mx: 1 }}>
               <CustomButton
-                label="Edit"
+                label={t("editButton")}
                 color="info"
                 onClick={() => navigate(`/books-list/edit-book/${id}`)}
               />
             </Grid>
             <Grid item>
               <CustomButton
-                label="Delete"
+                label={t("deleteButton")}
                 color="error"
                 onClick={() => {
                   handleDelete(id, dispatch, navigate, "/books-list");
@@ -123,7 +127,7 @@ const ViewBookForm = ({ book, id }) => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" sx={{ m: 2 }}>
-            Brief:{" "}
+            {t("brief")}
             <span
               style={{
                 ...viewBookStyles.textWithBold,
