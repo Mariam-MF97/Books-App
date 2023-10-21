@@ -48,7 +48,7 @@ const DashboardLayout = ({ children }) => {
             style={{
               width: drawerWidth,
             }}
-            anchor={isRtl ? "right" : "left"}
+            // anchor={isRtl ? "right" : "left"}
           >
             <Box textAlign="center" p={2}>
               <img src={acoreLogo} alt="logo" style={{ width: "70px" }} />

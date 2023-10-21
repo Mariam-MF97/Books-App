@@ -27,7 +27,7 @@
   "cancel": "إلغاء",
   "cover_dimension": "أفضل أبعاد لصورة الغلاف هي 128*200",
   "addBook": "إضافة كتاب",
-  "editBook": "تحرير الكتاب",
+  "editBook": "تعديل الكتاب",
   "success": "نجاح",
   "bookAdded": "تمت إضافة الكتاب!",
   "bookAddedSuccess": "تمت إضافة الكتاب بنجاح.",
@@ -51,5 +51,16 @@
   "goToLogin": "الانتقال إلى تسجيل الدخول",
   "language": "اللغة",
   "english": "الإنجليزية",
-  "arabic": "العربية"
+  "arabic": "العربية",
+  "deleteBook": "حذف الكتاب",
+  "deleteBookConfirmation": "هل أنت متأكد أنك تريد حذف هذا الكتاب؟",
+  "bookDeleted": "تم حذف الكتاب بنجاح.",
+  "deleted": "تم الحذف!",
+  "cancelled": "تم الإلغاء",
+  "notDeleted": "لم يتم حذف الكتاب.",
+  "yesDelete": "نعم، احذفه",
+  "noKeep": "لا، إلغِ الحذف",
+  "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+  "loginFailed": "فشل تسجيل الدخول",
+  "invalidEmail": "صيغة البريد الالكتروني غير صحيحة"
 }

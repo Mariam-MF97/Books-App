@@ -1,6 +1,8 @@
 import { createContext, useContext, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { users } from "../utils/data/users";
+import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 const AuthContext = createContext();
 
@@ -29,7 +31,7 @@ const authReducer = (state, action) => {
 export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const login = (email, password) => {
     const matchedUser = users?.find(
       (user) => user.email === email && user.password === password
@@ -39,7 +41,11 @@ export const AuthProvider = ({ children }) => {
       dispatch({ type: actionTypes.LOGIN, payload: matchedUser });
       navigate("/books-list", { replace: true });
     } else {
-      alert("Login failed. Invalid email or password.");
+      Swal.fire({
+        icon: "error",
+        title: t("loginFailed"),
+        text: t("invalidCredentials"),
+      });
     }
   };
 

@@ -51,5 +51,16 @@
   "goToLogin": "Go to Login",
   "language": "Language",
   "english": "English",
-  "arabic": "Arabic"
+  "arabic": "Arabic",
+  "deleteBook": "Delete Book",
+  "deleteBookConfirmation": "Are you sure you want to delete this book?",
+  "bookDeleted": "The book has been deleted.",
+  "deleted": "Deleted!",
+  "cancelled": "Cancelled",
+  "notDeleted": "The book has not been deleted.",
+  "yesDelete": "Yes, delete it",
+  "noKeep": "No, keep it",
+  "invalidCredentials": "The Email Address or Password is incorrect.",
+  "loginFailed": "Login Failed",
+  "invalidEmail": "Invalid Email Address Format"
 }

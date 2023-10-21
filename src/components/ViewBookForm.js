@@ -119,7 +119,7 @@ const ViewBookForm = ({ book, id }) => {
                 label={t("deleteButton")}
                 color="error"
                 onClick={() => {
-                  handleDelete(id, dispatch, navigate, "/books-list");
+                  handleDelete(t, id, dispatch, navigate, "/books-list");
                 }}
               />
             </Grid>

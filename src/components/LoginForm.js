@@ -6,13 +6,11 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import acoreLogo from "../assets/images/acore-logo.png";
+import { loginFormStyle } from "../utils/styles/styles";
 import CustomButton from "./CustomButton";
 import { EmailTextField, PasswordTextField } from "./loginReusableComponents";
-import { loginFormStyle } from "../utils/styles/styles";
-import { useTranslation } from "react-i18next";
 
-const LoginForm = ({ control, onSubmit }) => {
-  const { t } = useTranslation();
+const LoginForm = ({ t, control, onSubmit }) => {
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
       <Grid

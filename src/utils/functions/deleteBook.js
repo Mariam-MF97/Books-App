@@ -1,23 +1,23 @@
 import Swal from "sweetalert2";
 
-export const handleDelete = (bookId, dispatch, navigate, url) => {
+export const handleDelete = (t, bookId, dispatch, navigate, url) => {
   Swal.fire({
-    title: "Delete Book",
-    text: "Are you sure you want to delete this book?",
+    title: t("deleteBook"),
+    text: t("deleteBookConfirmation"),
     icon: "warning",
     showCancelButton: true,
-    confirmButtonText: "Yes, delete it",
-    cancelButtonText: "No, keep it",
+    confirmButtonText: t("yesDelete"),
+    cancelButtonText: t("noKeep"),
   }).then((result) => {
     if (result.isConfirmed) {
       // Dispatch an action to remove the book from the state using the book's id
       dispatch({ type: "DELETE_BOOK", payload: bookId });
-      Swal.fire("Deleted!", "The book has been deleted.", "success");
+      Swal.fire(t("deleted"), t("bookDeleted"), "success");
       if (url) {
         navigate(url);
       }
     } else if (result.dismiss === Swal.DismissReason.cancel) {
-      Swal.fire("Cancelled", "The book has not been deleted.", "error");
+      Swal.fire(t("cancelled"), t("notDeleted"), "error");
     }
   });
 };

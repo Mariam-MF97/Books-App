@@ -135,7 +135,7 @@ const BooksList = () => {
                         <IconButton
                           color="error"
                           onClick={() =>
-                            handleDelete(book.id, dispatch, navigate)
+                            handleDelete(t, book.id, dispatch, navigate)
                           }
                         >
                           <DeleteIcon />
